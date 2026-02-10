@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\sobhan\\Desktop\\Desktop\\MyGitAccount\\wpf_gravity_simulator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6BD7AC16-74A9-4CF0-9205-81F52A9AA231}|simulator\\simulator.csproj|c:\\users\\sobhan\\desktop\\desktop\\mygitaccount\\wpf_gravity_simulator\\simulator\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6BD7AC16-74A9-4CF0-9205-81F52A9AA231}|simulator\\simulator.csproj|solutionrelative:simulator\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\sobhan\\Desktop\\Desktop\\MyGitAccount\\wpf_gravity_simulator\\simulator\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "simulator\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\sobhan\\Desktop\\Desktop\\MyGitAccount\\wpf_gravity_simulator\\simulator\\MainWindow.xaml.cs",
+              "RelativeToolTip": "simulator\\MainWindow.xaml.cs",
+              "ViewState": "AgIAANIAAAAAAAAAAAAAAOEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-10T19:29:58.023Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

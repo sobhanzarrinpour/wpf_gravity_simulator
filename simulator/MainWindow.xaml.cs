@@ -18,126 +18,8 @@ using System.Windows.Shapes;
 
 namespace simulator
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        /*
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            //Ellipse el1 = new Ellipse();
-
-            //el1.Height = 50;
-            //el1.Width = 50;
-            //el1.Fill = new SolidColorBrush(Colors.Red);
-            //el1.Stroke = new SolidColorBrush(Colors.Black);
-            //el1.StrokeThickness = 4;
-            //Canvas.SetTop(el1, 0);
-            //Canvas.SetLeft(el1, 0);
-            //Canvas.SetZIndex(el1, 1);
-
-            //playground.Children.Add(el1);
-
-            Thread.Sleep(10);
-
-            //update_ellipse_position(playground, el1);
-            update_ellipse_position(playground);
-        }
-
-        [MTAThread]
-        private void update_ellipse_position(Canvas c, Ellipse e)
-        {
-            //ThreadLocal<Canvas> threadLocalCanvas = new ThreadLocal<Canvas>(() => c);
-            //ThreadLocal<Ellipse> threadLocalEllipse = new ThreadLocal<Ellipse>(() => e);
-
-            //Thread th1 = new Thread(() =>
-            //{
-            //    for (int i = 0; i < 100; i++)
-            //    {
-            //        Canvas.SetTop(threadLocalEllipse.Value, i);
-            //        Canvas.SetLeft(threadLocalEllipse.Value, i);
-            //        threadLocalCanvas.Value.UpdateLayout();
-            //        Thread.Sleep(100);
-            //    }
-            //});
-            //th1.Start();
-
-            List<int> t = new List<int>();
-
-            double left = Canvas.GetLeft(e);
-            double top = Canvas.GetTop(e);
-
-            for (int i=0; i< 200; i++)
-            {
-                e.SetValue(Canvas.LeftProperty, left + i);
-                e.SetValue(Canvas.TopProperty, top + i);
-                c.UpdateLayout();
-                Thread.Sleep(5);
-            }
-
-            
-
-            
-            Parallel.For(0, 50, i =>
-            {
-                //Canvas.SetTop(e, i);
-                //Canvas.SetLeft(e, i);
-                //c.UpdateLayout();
-                //Thread.Sleep(10);
-
-
-                t.Add(i);
-            });
-
-            string ss = "";
-            foreach (int s in t)
-            {
-                ss += s.ToString()+",";
-            }
-
-            my_label.Content = ss;
-
-        }
-
-
-        private void update_ellipse_position(Canvas c)
-        {
-            for (int i = 0; i < 200; i++)
-            {
-                c.Children.Clear();
-
-                Ellipse el1 = new Ellipse();
-
-                el1.Height = 50;
-                el1.Width = 50;
-                el1.Fill = new SolidColorBrush(Colors.Red);
-                el1.Stroke = new SolidColorBrush(Colors.Black);
-                el1.StrokeThickness = 4;
-                Canvas.SetTop(el1, i);
-                Canvas.SetLeft(el1, i);
-                Canvas.SetZIndex(el1, 1);
-
-                c.Children.Add(el1);
-                c.UpdateLayout();
-                Thread.Sleep(10);
-            }
-
-        }
-
-        private void CheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            start_btn.IsEnabled = !enable_start.IsChecked.Value;
-        }
-        */
-
-
         private List<Ellipse> _ellipse;
         private int number_of_planets = 150;
         private double G = 6.67 * 1e-1; // 6.67 * 1e-11;
@@ -210,7 +92,6 @@ namespace simulator
 
                 if (i == 0)
                 {
-                    //ellipse.Loaded += (s, e) => txt1.Text = PhysicsProperties.GetMass(ellipse).ToString() + " --- (" + PhysicsProperties.GetVelocity(ellipse)[0].ToString() + " , " + PhysicsProperties.GetVelocity(ellipse)[1].ToString() + " )";
                     ellipse.LayoutUpdated += (s, e) => txt1.Text = "(" + Canvas.GetLeft(ellipse).ToString() + " , " + Canvas.GetTop(ellipse).ToString() + " )";
                     PhysicsProperties.SetMass(ellipse, 1000000);
                 }
@@ -239,66 +120,10 @@ namespace simulator
             }
         }
 
-        private void AnimateEllipse(double targetX, double targetY, double durationSeconds)
-        {
-            var duration = TimeSpan.FromSeconds(durationSeconds);
-
-            var leftAnim = new DoubleAnimation
-            {
-                To = targetX,
-                Duration = duration,
-                //EasingFunction = new CircleEase { EasingMode = EasingMode.EaseInOut } // Natural motion
-                //EasingFunction = new ElasticEase { EasingMode = EasingMode.EaseInOut } // Natural motion
-            };
-
-            var topAnim = new DoubleAnimation
-            {
-                To = targetY,
-                Duration = duration,
-                //EasingFunction = new CircleEase { EasingMode = EasingMode.EaseInOut }
-            };
-
-            var storyboard = new Storyboard();
-            storyboard.Children.Add(leftAnim);
-            storyboard.Children.Add(topAnim);
-
-            foreach (var ell in _ellipse)
-            {
-                Storyboard.SetTarget(leftAnim, ell);
-                Storyboard.SetTargetProperty(leftAnim, new PropertyPath("(Canvas.Left)"));
-
-                Storyboard.SetTarget(topAnim, ell);
-                Storyboard.SetTargetProperty(topAnim, new PropertyPath("(Canvas.Top)"));
-            }
-
-            // Optional: Enable FPS monitoring during dev
-            // Timeline.DesiredFrameRate = 60;
-
-            storyboard.Begin();
-            //storyboard.Freeze();
-        }
-
-
-        /*
-         🔁 For Continuous/Interactive Movement (e.g., Mouse Tracking)
-            If you need dynamic path changes (e.g., following mouse), use CompositionTarget.Rendering — but only when necessary:
-         */
         private void StartInteractiveMovement()
         {
             CompositionTarget.Rendering += OnRendering;
         }
-
-        //private void OnRendering(object sender, EventArgs e)
-        //{
-        //    // Example: Move toward mouse position
-        //    var pos = Mouse.GetPosition(playground);
-        //    double currentX = Canvas.GetLeft(_ellipse);
-        //    double currentY = Canvas.GetTop(_ellipse);
-
-        //    // Smooth interpolation (avoid snapping)
-        //    Canvas.SetLeft(_ellipse, currentX + (pos.X - currentX) * 0.1);
-        //    Canvas.SetTop(_ellipse, currentY + (pos.Y - currentY) * 0.1);
-        //}
 
         private async void OnRendering(object sender, EventArgs e)
         {
@@ -311,13 +136,8 @@ namespace simulator
                 int i = 0;
                 foreach (Ellipse ell in _ellipse)
                 {
-                    // Example: Move toward mouse position
                     double currentX = Canvas.GetLeft(ell);
                     double currentY = Canvas.GetTop(ell);
-
-                    //// Smooth interpolation (avoid snapping)
-                    //Canvas.SetLeft(ell, currentX + (r.Next(5) - r.Next(5)));
-                    //Canvas.SetTop(ell, currentY + (r.Next(5) - r.Next(5)));
 
                     Canvas.SetLeft(ell, Math.Round(p[i][0], 1));
                     Canvas.SetTop(ell, Math.Round(p[i][1], 1));
@@ -336,7 +156,6 @@ namespace simulator
 
             foreach (Ellipse ell in _ellipse)
             {
-                // Example: Move toward mouse position
                 double currentX = Canvas.GetLeft(ell);
                 double currentY = Canvas.GetTop(ell);
                 double mass1 = PhysicsProperties.GetMass(ell);
@@ -388,30 +207,8 @@ namespace simulator
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             my_label.Content = "process starting...";
-
             playground.Background = Brushes.LightSteelBlue;
-
-            //// Add a "Hello World!" text element to the Canvas
-            //TextBlock txt1 = new TextBlock();
-            //txt1.FontSize = 14;
-            //txt1.Text = "Hello World!";
-            //Canvas.SetTop(txt1, 100);
-            //Canvas.SetLeft(txt1, 10);
-            //playground.Children.Add(txt1);
-
-            //// Add a second text element to show how absolute positioning works in a Canvas
-            //TextBlock txt2 = new TextBlock();
-            //txt2.FontSize = 22;
-            //txt2.Text = "Isn't absolute positioning handy?";
-            //Canvas.SetTop(txt2, 200);
-            //Canvas.SetLeft(txt2, 75);
-            //playground.Children.Add(txt2);
-
-
-            //AnimateEllipse(300, 200, durationSeconds: 3); // Move to (300,400) over 3 seconds
-
             StartInteractiveMovement();
         }
 
@@ -427,7 +224,6 @@ namespace simulator
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            //StopInteractiveMovement();
             playground.Children.Clear();
             CreateEllipse();
         }
