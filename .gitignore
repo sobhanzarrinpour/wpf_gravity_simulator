@@ -1,3 +1,4 @@
 .vs
+.idea
 simulator/bin
-simulator/obj/Debug
+simulator/obj
