@@ -208,7 +208,7 @@ namespace simulator
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             my_label.Content = "process starting...";
-            playground.Background = Brushes.LightSteelBlue;
+            // playground.Background = Brushes.LightSteelBlue;
             StartInteractiveMovement();
         }
 
